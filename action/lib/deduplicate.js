@@ -28,6 +28,10 @@ export default async function ({ octokit, workflow_id, run_id }) {
     // sort
     .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
 
+  for (const run of workflow_runs) {
+    core.info(`name=${run.name} id=${run.id} status=${run.status} sha=${run.head_sha} created_at=${run.created_at}`)
+  }
+
   // there can only be one
   if (cancellable.length <= 1) {
     core.info(`found no cancellable runs of workflow #${workflow_id}`)
